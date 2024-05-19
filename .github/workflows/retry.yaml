@@ -54,6 +54,7 @@ jobs:
       needs: [job_three]
       runs-on: ubuntu-latest
       steps:
-        - run: |
-            echo "runs only on failure (for maximum of 3 times)"
-            echo ${{ github.run_attempt }}
+      - env:
+            GH_REPO: ${{ github.repository }}
+            GH_TOKEN: ${{ github.token }}
+        run: gh workflow run retry-workflow.yml -F run_id=${{ github.run_id }}
