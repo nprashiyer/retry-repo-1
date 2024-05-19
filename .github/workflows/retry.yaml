@@ -51,10 +51,10 @@ jobs:
       if: failure() && fromJSON(github.run_attempt) < 3
 
       # run thes step last
-      needs: [job_three]
+      needs: [job_one,job_two,job_three]
       runs-on: ubuntu-latest
       steps:
       - env:
             GH_REPO: ${{ github.repository }}
             GH_TOKEN: ${{ github.token }}
-        run: gh workflow run retry-workflow.yml -F run_id=${{ github.run_id }}
+        run: gh workflow run retry.yaml -F run_id=${{ github.run_id }}
