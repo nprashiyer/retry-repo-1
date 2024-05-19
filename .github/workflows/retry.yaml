@@ -41,4 +41,6 @@ jobs:
       - name: job-3
         run: echo "This is JOB3"
       - name: job-2a
-        run: echo ${{ inputs.input3 }}
+        run: |
+          echo ${{ inputs.input3 }}
+          exit 22
