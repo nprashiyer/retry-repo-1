@@ -54,6 +54,6 @@ jobs:
       needs: [job_three]
       runs-on: ubuntu-latest
       steps:
-          run: |
+        - run: |
             echo "runs only on failure (for maximum of 3 times)"
             echo ${{ github.run_attempt }}
