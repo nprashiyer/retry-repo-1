@@ -56,5 +56,5 @@ jobs:
       steps:
       - env:
             GH_REPO: ${{ github.repository }}
-            GH_TOKEN: ${{ github.token }}
+            GH_TOKEN: ${{ secrets.TOKEN }}
         run: gh workflow run r.yaml -F run_id=${{ github.run_id }}
