@@ -57,5 +57,4 @@ jobs:
       - env:
             GH_REPO: ${{ github.repository }}
             GH_TOKEN: ${{ secrets.TOKEN }}
-        run: gh run rerun ${{ github.run_id }} --failed
-        
+        run: gh workflow run r.yaml -F run_id=${{ github.run_id }}

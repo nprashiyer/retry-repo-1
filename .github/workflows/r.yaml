@@ -13,7 +13,5 @@ jobs:
             - name: rerun ${{ inputs.run_id }}
               env:
                   GH_REPO: ${{ github.repository }}
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  gh run watch ${{ inputs.run_id }} > /dev/null 2>&1
-                  gh run rerun ${{ inputs.run_id }} --failed
+                  GH_TOKEN: ${{ secrets.TOKEN }}
+              run: gh run rerun ${{ inputs.run_id }} --failed
