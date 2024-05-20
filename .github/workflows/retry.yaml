@@ -46,15 +46,9 @@ jobs:
           exit 22
 
   retry-on-failure:
-      # only execute the step on failed workflows
-      # do not trigger more than 3 times
       if: failure() && fromJSON(github.run_attempt) < 3
-
-      # run thes step last
       needs: [job_one,job_two,job_three]
-      runs-on: ubuntu-latest
-      steps:
-      - env:
-            GH_REPO: ${{ github.repository }}
-            GH_TOKEN: ${{ secrets.TOKEN }}
-        run: gh workflow run r.yaml -F run_id=${{ github.run_id }}
+      uses: ./.github/workflows/r.yaml
+      with:
+        run_id: ${{ github.run_id }}
+        
