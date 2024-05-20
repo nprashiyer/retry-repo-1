@@ -1,7 +1,7 @@
 name: Retry workflow
 
 on:
-    workflow_call:
+    workflow_dispatch:
         inputs:
             run_id:
                 required: true
