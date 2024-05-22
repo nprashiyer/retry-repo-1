@@ -6,9 +6,11 @@ on:
     #         run_id:
     #             required: true
     #             type: string
-  workflow_run:
-    workflows: [Test Var]
-    types: [completed]
+  # workflow_run:
+  #   workflows: [Test Var]
+  #   types: [completed]
+    repository_dispatch:
+    types: [trigger-secondary]
 
 jobs:
     rerun:
