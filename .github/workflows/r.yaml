@@ -10,7 +10,7 @@ on:
   #   workflows: [Test Var]
   #   types: [completed]
     repository_dispatch:
-    types: [trigger-secondary]
+      types: [trigger-secondary]
 
 jobs:
     rerun:
