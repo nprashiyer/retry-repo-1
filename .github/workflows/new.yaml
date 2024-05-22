@@ -26,6 +26,7 @@ jobs:
     - run: |
        echo "Job C"
        echo ${{ needs.job-b.result }}
+       exit 22
       
 
   test-job-c:
