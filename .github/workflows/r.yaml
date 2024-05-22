@@ -19,7 +19,7 @@ jobs:
             - uses: actions/checkout@v4
             - name: echo
               run: |
-                "Input1: ${{ github.event.client_payload.run_id }}"
+                echo "Input1: ${{ github.event.client_payload.run_id }}"
 
             - name: rerun
               env:
