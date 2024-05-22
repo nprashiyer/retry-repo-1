@@ -16,7 +16,7 @@ jobs:
     needs: [job-a]
     runs-on: ubuntu-latest
     steps:
-    - run: exit 15
+    - run: echo "Hi"
   
   job-c:
     name: job-c
@@ -44,8 +44,8 @@ jobs:
           fi
            
   retry-on-failure:
-      if: ${{ failure() && needs.test-job-c.result == 'failure' && github.run_attempt < 3 }}
-      needs: [test-job-c]
+      if: ${{ failure() && (needs.job-c.result == 'failure' || needs.test-job-c.result == 'failure') && github.run_attempt < 3 }}
+      needs: [test-job-c, job-c]
       runs-on: ubuntu-latest
       steps:
           - run: echo ${{ needs.test-job-c.result }}
