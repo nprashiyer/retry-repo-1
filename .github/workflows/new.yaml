@@ -23,7 +23,10 @@ jobs:
     needs: [job-b]
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Job C"
+    - run: |
+       echo "Job C"
+       echo ${{ needs.job-b.result }}
+      
 
   test-job-c:
     name: test job
