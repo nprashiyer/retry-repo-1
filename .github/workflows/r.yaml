@@ -1,23 +1,27 @@
 name: Retry workflow
 
 on:
-    workflow_dispatch:
-        inputs:
-            run_id:
-                required: true
-                type: string
-#   workflow_run:
-#     workflows: [Auto Deploy to CI]
-#     types: [completed]
-#     branches: main
+    # workflow_dispatch:
+    #     inputs:
+    #         run_id:
+    #             required: true
+    #             type: string
+  workflow_run:
+    workflows: [Test Var]
+    types: [completed]
+
 jobs:
     rerun:
         runs-on: ubuntu-latest
         if: ${{ github.event.workflow_run.conclusion == 'failure' }}
         steps:
             - uses: actions/checkout@v4
-            - name: rerun ${{ inputs.run_id }}
+            - name: echo
+              run: |
+                "Input1: ${{ github.event.client_payload.run_id }}"
+
+            - name: rerun
               env:
                   GH_REPO: ${{ github.repository }}
                   GH_TOKEN: ${{ secrets.TOKEN }}
-              run: gh run rerun ${{ inputs.run_id }} --failed
+              run: gh run rerun ${{ github.event.client_payload.run_id }} --failed #gh run rerun ${{ inputs.run_id }} --failed
