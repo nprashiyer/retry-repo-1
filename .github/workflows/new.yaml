@@ -16,7 +16,7 @@ jobs:
     needs: [job-a]
     runs-on: ubuntu-latest
     steps:
-    - run: echo "Hi"
+    - run: exit 15
   
   job-c:
     name: job-c
