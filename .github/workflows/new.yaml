@@ -44,7 +44,7 @@ jobs:
           fi
            
   retry-on-failure:
-      if: ${{ needs.test-job-c.result == 'failure' && github.run_attempt < 3  }}
+      if: ${{ needs.test-job-c.result == 'failure' }}
       needs: [test-job-c]
       runs-on: ubuntu-latest
       steps:
