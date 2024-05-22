@@ -1,0 +1,52 @@
+name: Build and Publish
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  job-a:
+    name: job-a
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Job A"
+
+  job-b:
+    name: job-b
+    needs: [job-a]
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Job B"
+  
+  job-c:
+    name: job-c
+    needs: [job-b]
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Job C"
+
+  test-job-c:
+    name: test job
+    needs:  [job-b,job-c]
+    runs-on: ubuntu-latest
+    steps:
+      - name: check retry
+        run: |
+          RUN=${{ github.run_attempt }}
+          echo $RUN
+          if [[ $RUN -ne 3 ]]; then
+            exit 22;
+          else
+            echo "SUCCESS"
+          fi
+           
+  retry-on-failure:
+      if: failure() && fromJSON(github.run_attempt) < 3
+      needs: [test-job-c]
+      runs-on: ubuntu-latest
+      steps:
+          - uses: actions/checkout@v4
+          - env:
+                GH_REPO: ${{ github.repository }}
+                GH_TOKEN: ${{ secrets.REPO_RW_PAT }}
+            run: gh workflow run new_retry.yaml -F run_id=${{ github.run_id }}
