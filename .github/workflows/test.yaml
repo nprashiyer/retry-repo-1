@@ -1,0 +1,13 @@
+name: env
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+
+  job-b:
+    name: job-b
+    runs-on: ubuntu-latest
+    steps:
+    - run: env
